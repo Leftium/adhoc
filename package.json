@@ -1,0 +1,57 @@
+{
+  "name": "adhoc",
+  "version": "0.1.0",
+  "author": "Leftium <john@leftium.com>",
+  "description": "Start a web server in that directory. This instant!",
+  "main": "./lib/adhoc",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leftium/adhoc"
+  },
+  "keywords": [
+    "cli",
+    "command",
+    "server",
+    "web",
+    "directory"
+  ],
+  "scripts": {
+    "start": "node ./bin/adhoc",
+    "test": "vows --spec --isolate"
+  },
+  "contributors": [
+    {
+      "name": "John-Kim Murphy",
+      "email": "john@leftium.com"
+    }
+  ],
+  "dependencies": {
+    "colors": "*",
+    "union": "*",
+    "portfinder": "*",
+    "node-getopt": "*",
+    "openurl": "*",
+    "bytes": "*",
+    "pause": "*",
+    "send": "*",
+    "crypto": "*"
+  },
+  "devDependencies": {
+    "vows": "0.6.x",
+    "request": "2.9.x"
+  },
+  "bugs": {
+    "url": "https://github.com/leftium/adhoc/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/leftium/adhoc/raw/master/LICENSE"
+    }
+  ],
+  "analyze": false,
+  "preferGlobal": "true",
+  "bin": {
+    "adhoc": "./bin/adhoc"
+  }
+}
