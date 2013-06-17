@@ -33,6 +33,10 @@ var options = {
     index: opt.options.index || 'index.html'
 }
 
+if (isNaN(options.verbosity)) {
+    options.verbosity = 1;
+}
+
 portfinder.basePort = options.port;
 portfinder.getPort(function (err, port) {
     if (err) throw err;
