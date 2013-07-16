@@ -12,9 +12,10 @@ var Getopt = require('node-getopt'),
 //   '[=]': has argument but optional
 //   '+':   multiple option supported
 var getopt = new Getopt([
-  ['p', 'port=NUM'      , 'port to use [80]'                   ],
   ['n', 'nobrowser'     , 'supress automatic browser launch'   ],
   ['v', 'verbosity=NUM' , '0: silent, 1: quiet, 2: verbose [1]'],
+  ['p', 'port=NUM'      , 'port to use [80]'                   ],
+  ['r', 'noreload'      , 'supress live reload'                ],
   ['c', 'cache=SECONDS' , 'browser cache time (in seconds) [0]'],
   ['i', 'index=FILENAME', 'default index filename [index.html]'],
   ['h', 'help'          , 'display this help'                  ]
@@ -27,6 +28,7 @@ opt = getopt.parseSystem();
 var options = {
     root: path.resolve(opt.argv[0] || '.'),
     port: parseInt(opt.options.port || 80),
+    livereload: !(opt.options.noreload || false),
     launchBrowser: !(opt.options.nobrowser || false),
     verbosity: parseInt(opt.options.verbosity),
     maxAge: parseInt(opt.options.cache * 1000) || 0,
@@ -40,11 +42,22 @@ if (isNaN(options.verbosity)) {
 portfinder.basePort = options.port;
 portfinder.getPort(function (err, port) {
     if (err) throw err;
-    listen(port);
-})
 
-function listen(port) {
-    var server = httpServer.createServer(options);
+    if (!options.livereload) {
+        listen(port, false);
+    } else {
+        // Grab another port for live reload
+        portfinder.basePort = (port != 35729) ? 35729 : 35730;
+        portfinder.getPort(function (err, livereloadPort) {
+            if (err) throw err;
+
+            listen(port, livereloadPort);
+        });
+    }
+});
+
+function listen(port, livereloadPort) {
+    var server = httpServer.createServer(options, livereloadPort);
     var url = 'http://localhost:' + port.toString() + '/';
 
     server.listen(port, function() {
@@ -52,11 +65,28 @@ function listen(port) {
             + server.root.bold.cyan
             + ' at '.yellow
             + url.toString().underline.bold.magenta);
-        process.stdout.write('Hit CTRL-C to stop the server. ');
+
+        if (livereloadPort)  {
+            // start live reload server
+            livereload = require('livereload');
+            reloadServer = livereload.createServer({
+                port: livereloadPort,
+                exts: ['htm', 'html', 'css', 'js', 'json', 'png', 'gif',
+                       'php', 'php5', 'py', 'rb', 'erb']
+            });
+            reloadServer.watch(options.root);
+            console.log('Started live reload server on port '.yellow
+                + livereloadPort.toString().bold.magenta);
+        }
+
+        process.stdout.write('Hit CTRL-C to stop the server');
+        if (livereloadPort) {
+            process.stdout.write('s');
+        }
 
         // Open the URL if they specify
         if (options.launchBrowser) {
-            process.stdout.write("Launching your default browser...");
+            process.stdout.write(". Launching your default browser...");
             require("openurl").open(url);
         }
         process.stdout.write('\n');
