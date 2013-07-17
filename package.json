@@ -15,7 +15,8 @@
     "web",
     "directory",
     "livereload",
-    "SimpleHTTPServer"
+    "SimpleHTTPServer",
+    "HTTP"
   ],
   "scripts": {
     "start": "node ./bin/adhoc",
