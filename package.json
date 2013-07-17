@@ -1,7 +1,7 @@
 {
   "name": "adhoc",
   "version": "0.1.0",
-  "author": "Leftium <john@leftium.com>",
+  "author": "John-Kim Murphy <john@leftium.com> http://www.leftium.com",
   "description": "Start a web server in that directory. This instant!",
   "main": "./lib/adhoc",
   "repository": {
@@ -13,18 +13,13 @@
     "command",
     "server",
     "web",
-    "directory"
+    "directory",
+    "livereload"
   ],
   "scripts": {
     "start": "node ./bin/adhoc",
     "test": "vows --spec --isolate"
   },
-  "contributors": [
-    {
-      "name": "John-Kim Murphy",
-      "email": "john@leftium.com"
-    }
-  ],
   "dependencies": {
     "colors": "*",
     "union": "*",
@@ -35,8 +30,9 @@
     "pause": "*",
     "send": "*",
     "crypto": "*",
-    "livereload": "~0.3.0",
-    "connect-livereload": "~0.2.0"
+    "better-livereload": "~0.3.1",
+    "connect-livereload": "~0.2.0",
+    "longjohn": "*"
   },
   "devDependencies": {
     "vows": "0.6.x",

@@ -21,7 +21,7 @@ var getopt = new Getopt([
   ['c', 'cache=SECONDS' , 'browser cache time (in seconds) [0]'],
   ['i', 'index=FILENAME', 'default index filename [index.html]'],
   ['h', 'help'          , 'display this help'                  ]
-]).bindHelp('usage: adhoc [path] [options]\n\n[[OPTIONS]]\n');
+]).bindHelp('usage: adhoc [options] [path]\n\n[[OPTIONS]]\n');
 
 // process.argv needs slice(2) for it starts with 'node' and 'script name'
 // parseSystem is alias  of parse(process.argv.slice(2))
