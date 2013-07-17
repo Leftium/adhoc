@@ -2,7 +2,7 @@
   "name": "adhoc",
   "version": "0.1.0",
   "author": "John-Kim Murphy <john@leftium.com> http://www.leftium.com",
-  "description": "Start a web server in that directory. This instant!",
+  "description": "Start a web server in that directory. This instant! (like python -m SimpleHTTPServer on steroids)",
   "main": "./lib/adhoc",
   "repository": {
     "type": "git",
@@ -14,7 +14,8 @@
     "server",
     "web",
     "directory",
-    "livereload"
+    "livereload",
+    "SimpleHTTPServer"
   ],
   "scripts": {
     "start": "node ./bin/adhoc",

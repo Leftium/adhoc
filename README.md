@@ -1,6 +1,7 @@
 # Adhoc: the Web Dev's Lil' Helper
 
-Start a web server in that directory. This instant!
+Start a web server in that directory. This instant! <br />
+(like `python -m SimpleHTTPServer` on steroids)
 <hr />
 **Main Benefits**
 
