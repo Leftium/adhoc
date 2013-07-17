@@ -7,13 +7,15 @@ var Getopt = require('node-getopt'),
     path = require('path'),
     dummy = null;
 
+require('longjohn');
+
 // Getopt arguments options
 //   '=':   has argument
 //   '[=]': has argument but optional
 //   '+':   multiple option supported
 var getopt = new Getopt([
   ['n', 'nobrowser'     , 'supress automatic browser launch'   ],
-  ['v', 'verbosity=NUM' , '0: silent, 1: quiet, 2: verbose [1]'],
+  ['v', 'verbosity=NUM' , 'server log level 0 to 4         [3]'],
   ['p', 'port=NUM'      , 'port to use [80]'                   ],
   ['r', 'noreload'      , 'supress live reload'                ],
   ['c', 'cache=SECONDS' , 'browser cache time (in seconds) [0]'],
@@ -36,7 +38,7 @@ var options = {
 }
 
 if (isNaN(options.verbosity)) {
-    options.verbosity = 1;
+    options.verbosity = 3;
 }
 
 portfinder.basePort = options.port;
@@ -62,13 +64,13 @@ function listen(port, livereloadPort) {
 
     server.listen(port, function() {
         console.log('The adhoc server is now hosting '.yellow
-            + server.root.bold.cyan
+            + server.root.bold.green
             + ' at '.yellow
-            + url.toString().underline.bold.magenta);
+            + url.toString().underline.bold.cyan);
 
         if (livereloadPort)  {
             // start live reload server
-            livereload = require('livereload');
+            livereload = require('better-livereload');
             reloadServer = livereload.createServer({
                 port: livereloadPort,
                 exts: ['htm', 'html', 'css', 'js', 'json', 'png', 'gif',
@@ -76,7 +78,7 @@ function listen(port, livereloadPort) {
             });
             reloadServer.watch(options.root);
             console.log('Started live reload server on port '.yellow
-                + livereloadPort.toString().bold.magenta);
+                + livereloadPort.toString().bold.yellow);
         }
 
         process.stdout.write('Hit CTRL-C to stop the server');
@@ -102,5 +104,11 @@ if (process.platform !== 'win32') {
         process.exit();
     });
 }
+/**/
+process.on('uncaughtException', function (err) {
+  console.error(err.stack);
+  console.log("Node NOT Exiting...");
+});
+/**/
 
 // vim: filetype=javascript
