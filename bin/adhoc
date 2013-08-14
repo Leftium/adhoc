@@ -14,11 +14,12 @@ require('longjohn');
 //   '[=]': has argument but optional
 //   '+':   multiple option supported
 var getopt = new Getopt([
-  ['n', 'nobrowser'     , 'supress automatic browser launch'   ],
+  ['b', 'nobrowser'     , 'supress automatic browser launch'   ],
   ['v', 'verbosity=NUM' , 'server log level 0 to 4         [3]'],
   ['p', 'port=NUM'      , 'port to use [80]'                   ],
   ['r', 'noreload'      , 'supress live reload'                ],
-  ['c', 'cache=SECONDS' , 'browser cache time (in seconds) [0]'],
+  ['c', 'nocolors'      , 'supress colors'                     ],
+  ['t', 'ttl=SECONDS'   , 'browser cache time (in seconds) [0]'],
   ['i', 'index=FILENAME', 'default index filename [index.html]'],
   ['h', 'help'          , 'display this help'                  ]
 ]).bindHelp('usage: adhoc [options] [path]\n\n[[OPTIONS]]\n');
@@ -31,14 +32,19 @@ var options = {
     root: path.resolve(opt.argv[0] || '.'),
     port: parseInt(opt.options.port || 80),
     livereload: !(opt.options.noreload || false),
+    colors: !(opt.options.nocolors || false),
     launchBrowser: !(opt.options.nobrowser || false),
     verbosity: parseInt(opt.options.verbosity),
-    maxAge: parseInt(opt.options.cache * 1000) || 0,
+    maxAge: parseInt(opt.options.ttl * 1000) || 0,
     index: opt.options.index || 'index.html'
 }
 
 if (isNaN(options.verbosity)) {
     options.verbosity = 3;
+}
+
+if (!options.colors) {
+    colors.mode = 'none'
 }
 
 portfinder.basePort = options.port;
