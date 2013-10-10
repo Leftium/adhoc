@@ -66,7 +66,7 @@ portfinder.getPort(function (err, port) {
 
 function listen(port, livereloadPort) {
     var server = httpServer.createServer(options, livereloadPort);
-    var url = 'http://localhost:' + port.toString() + '/';
+    var url = 'http://localhost:' + port.toString();
 
     server.listen(port, function() {
         console.log('The adhoc server is now hosting '.yellow
