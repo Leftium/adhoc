@@ -95,7 +95,10 @@ function listen(port, livereloadPort) {
         // Open the URL if they specify
         if (options.launchBrowser) {
             process.stdout.write(". Launching your default browser...");
-            require("openurl").open(url);
+            require("openurl").open(url, function (error) {
+                var msg = 'The browser could not be started! ' + error;
+                console.error(msg.red);
+            });
         }
         process.stdout.write('\n');
     });
