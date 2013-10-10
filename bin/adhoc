@@ -106,7 +106,7 @@ if (process.platform !== 'win32') {
     // Signal handlers don't work on Windows.
     //
     process.on('SIGINT', function () {
-        log('http-server stopped.'.red);
+        console.log('http-server stopped.'.red);
         process.exit();
     });
 }
