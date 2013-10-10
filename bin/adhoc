@@ -109,14 +109,14 @@ if (process.platform !== 'win32') {
     // Signal handlers don't work on Windows.
     //
     process.on('SIGINT', function () {
-        console.log('http-server stopped.'.red);
+        console.error('\nadhoc web server stopped.'.blue);
         process.exit();
     });
 }
 /**/
 process.on('uncaughtException', function (err) {
   console.error(err.stack);
-  console.log("Node NOT Exiting...");
+  console.error("Node NOT Exiting...");
 });
 /**/
 
