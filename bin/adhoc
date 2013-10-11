@@ -15,12 +15,12 @@ require('longjohn');
 //   '+':   multiple option supported
 var getopt = new Getopt([
   ['b', 'nobrowser'     , 'supress automatic browser launch'   ],
-  ['v', 'verbosity=NUM' , 'server log level 0 to 4         [3]'],
+  ['v', 'verbosity=NUM' , 'server log level 0 to 4             [default: 3]'],
   ['p', 'port=NUM'      , 'port to use [80]'                   ],
   ['r', 'noreload'      , 'supress live reload'                ],
   ['c', 'nocolors'      , 'supress colors'                     ],
-  ['t', 'ttl=SECONDS'   , 'browser cache time (in seconds) [0]'],
-  ['i', 'index=FILENAME', 'default index filename [index.html]'],
+  ['t', 'ttl=SECONDS'   , 'browser cache time (in seconds)     [default: 0]'],
+  ['i', 'index=FILENAME', 'default index filename              [default: index.html]'],
   ['h', 'help'          , 'display this help'                  ]
 ]).bindHelp('usage: adhoc [options] [path]\n\n[[OPTIONS]]\n');
 

@@ -1,9 +1,11 @@
+[한문 사용서 (Korean documentation)](https://github.com/Leftium/adhoc/blob/master/README-kr.md)
+
 # Adhoc: the Web Dev's Lil' Helper
 
 Start a web server in that directory. This instant! <br />
 (like `python -m SimpleHTTPServer` on steroids)
 <hr />
-**Main Benefits**
+## Main Benefits
 
 - Start a lightweight web server from anywhere with a single command
 - No need to repeatedly press [F5] \(reload) or even start your browser!
@@ -12,12 +14,12 @@ Start a web server in that directory. This instant! <br />
 - Navigate to a local WIP web site from your browser
 
 
-**Simple Installation:**
+## Simple Installation:
 
     npm -g install adhoc
 
 
-**How to Use:**
+## How to Use:
 
     $ ls
     index.html style.css script.js image.png
@@ -36,16 +38,17 @@ Start a web server in that directory. This instant! <br />
 watch all your browsers refresh automatically!*
 
 
-**Usage Instructions:**
+## Usage Instructions:
 
     adhoc [options] [path]
 
       -n, --nobrowser       supress automatic browser launch
-      -v, --verbosity=NUM   server log level 0 to 4         [3]
-      -p, --port=NUM        port to use [80]
+      -v, --verbosity=NUM   server log level 0 to 4             [default: 3]
+      -p, --port=NUM        port to use                         [default: 80]
       -r, --noreload        supress live reload
-      -c, --cache=SECONDS   browser cache time (in seconds) [0]
-      -i, --index=FILENAME  default index filename [index.html]
+      -c, --nocolors        supress colors
+      -t, --ttl=SECONDS     browser cache time (in seconds)     [default: 0]
+      -i, --index=FILENAME  default index filename              [default: index.html]
       -h, --help            display this help
 
 
