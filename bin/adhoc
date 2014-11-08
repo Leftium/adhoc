@@ -16,7 +16,7 @@ require('longjohn');
 var getopt = new Getopt([
   ['b', 'nobrowser'     , 'supress automatic browser launch'   ],
   ['v', 'verbosity=NUM' , 'server log level 0 to 4             [default: 3]'],
-  ['p', 'port=NUM'      , 'port to use [80]'                   ],
+  ['p', 'port=NUM'      , 'port to use [80,8090]'              ],
   ['r', 'noreload'      , 'supress live reload'                ],
   ['c', 'nocolors'      , 'supress colors'                     ],
   ['t', 'ttl=SECONDS'   , 'browser cache time (in seconds)     [default: 0]'],
@@ -31,6 +31,7 @@ opt = getopt.parseSystem();
 var options = {
     root: path.resolve(opt.argv[0] || '.'),
     port: parseInt(opt.options.port || 80),
+    userPort: 8090,
     livereload: !(opt.options.noreload || false),
     colors: !(opt.options.nocolors || false),
     launchBrowser: !(opt.options.nobrowser || false),
@@ -48,8 +49,19 @@ if (!options.colors) {
 }
 
 portfinder.basePort = options.port;
-portfinder.getPort(function (err, port) {
-    if (err) throw err;
+portfinder.getPort(gotHTTPport);
+
+function gotHTTPport(err, port) {
+    if (err) {
+      // We tried and failed with port 80 (most likely because we're not root).
+      // Try again, starting at 8090.
+      if (portfinder.basePort === options.port) {
+        portfinder.basePort = options.userPort;
+        portfinder.getPort(gotHTTPport);
+        return;
+      }
+      throw err;
+    }
 
     if (!options.livereload) {
         listen(port, false);
@@ -62,7 +74,7 @@ portfinder.getPort(function (err, port) {
             listen(port, livereloadPort);
         });
     }
-});
+}
 
 function listen(port, livereloadPort) {
     var server = httpServer.createServer(options, livereloadPort);
