@@ -104,15 +104,24 @@ function listen(port, livereloadPort) {
     });
 }
 
-if (process.platform !== 'win32') {
-    //
-    // Signal handlers don't work on Windows.
-    //
-    process.on('SIGINT', function () {
-        console.error('\nadhoc web server stopped.'.blue);
-        process.exit();
-    });
+// https://stackoverflow.com/a/14861513/117030
+if (process.platform === "win32") {
+  var rl = require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.on("SIGINT", function () {
+    process.emit("SIGINT");
+  });
 }
+
+process.on("SIGINT", function () {
+  //graceful shutdown
+  console.error('\nadhoc web server stopped.'.blue);
+  process.exit();
+});
+
 /**/
 process.on('uncaughtException', function (err) {
   console.error(err.stack);
