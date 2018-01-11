@@ -1,6 +1,6 @@
 {
   "name": "adhoc",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "author": "John-Kim Murphy <john@leftium.com> http://www.leftium.com",
   "description": "Start a web server in that directory. This instant! (like python -m SimpleHTTPServer on steroids)",
   "main": "./lib/adhoc",
