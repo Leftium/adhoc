@@ -27,12 +27,12 @@
     "colors": "*",
     "connect": "^3.6.5",
     "connect-livereload": "~0.2.0",
+    "get-port": "^3.2.0",
     "livereload": "^0.6.3",
     "longjohn": "*",
     "node-getopt": "*",
     "openurl": "*",
     "pause": "*",
-    "portfinder": "*",
     "send": "*",
     "serve-static": "^1.13.1"
   },

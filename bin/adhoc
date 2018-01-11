@@ -2,7 +2,7 @@
 
 var Getopt = require('node-getopt'),
     httpServer = require('../lib/http-server'),
-    portfinder = require('portfinder'),
+    getPort = require('get-port'),
     colors = require('colors'),
     path = require('path'),
     dummy = null;
@@ -47,18 +47,12 @@ if (!options.colors) {
     colors.mode = 'none'
 }
 
-portfinder.basePort = options.port;
-portfinder.getPort(function (err, port) {
-    if (err) throw err;
-
+getPort({port: options.port}).then(function(port) {
     if (!options.livereload) {
         listen(port, false);
     } else {
         // Grab another port for live reload
-        portfinder.basePort = (port != 35729) ? 35729 : 35730;
-        portfinder.getPort(function (err, livereloadPort) {
-            if (err) throw err;
-
+        getPort({port: (port != 35729) ? 35729 : 35730}).then(function (livereloadPort) {
             listen(port, livereloadPort);
         });
     }
