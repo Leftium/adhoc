@@ -80,7 +80,7 @@ function listen(port, livereloadPort) {
             reloadServer = livereload.createServer({
                 port: livereloadPort,
                 exts: ['htm', 'html', 'css', 'js', 'json', 'png', 'gif',
-                       'php', 'php5', 'py', 'rb', 'erb']
+                       'php', 'php5', 'py', 'rb', 'erb', 'md']
             });
             reloadServer.watch(options.root);
             console.log('Started live reload server on port '.yellow
