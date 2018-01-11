@@ -76,7 +76,7 @@ function listen(port, livereloadPort) {
 
         if (livereloadPort)  {
             // start live reload server
-            livereload = require('better-livereload');
+            livereload = require('livereload');
             reloadServer = livereload.createServer({
                 port: livereloadPort,
                 exts: ['htm', 'html', 'css', 'js', 'json', 'png', 'gif',
