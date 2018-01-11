@@ -23,23 +23,22 @@
     "test": "vows --spec --isolate"
   },
   "dependencies": {
+    "bytes": "*",
     "colors": "*",
-    "union": "*",
-    "portfinder": "*",
+    "connect": "^3.6.5",
+    "connect-livereload": "~0.2.0",
     "livereload": "^0.6.3",
+    "longjohn": "*",
     "node-getopt": "*",
     "openurl": "*",
-    "bytes": "*",
     "pause": "*",
+    "portfinder": "*",
     "send": "*",
     "serve-static": "^1.13.1"
-    "crypto": "*",
-    "connect-livereload": "~0.2.0",
-    "longjohn": "*"
   },
   "devDependencies": {
-    "vows": "0.6.x",
-    "request": "2.9.x"
+    "request": "2.9.x",
+    "vows": "0.6.x"
   },
   "bugs": {
     "url": "https://github.com/leftium/adhoc/issues"
